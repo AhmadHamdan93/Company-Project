@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>List of Projects</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <!-- load json text from file or session -->
+  <script lang="javascript" src="project_data.json"> </script>
+  <script>
+    var jsonTextInSession = sessionStorage.getItem('jsonTextInSession');
+    var data = new Object();
+    // load json text from file //
+    if(jsonTextInSession == null){
+        data = JSON.parse(jsonText);
+        sessionStorage.setItem("jsonTextInSession", jsonText)
+        //alert("loaded from file")
+    }
+    // load json text from session //
+    else{
+        data = JSON.parse(jsonTextInSession);
+        //alert("loaded from session")
+    }
+    //alert(JSON.stringify(jsonData))
+    var projects = data.projects
+
+  </script>
+
+</head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>List of Projects</h1>
+  <!--
+  <div style="width: 50%; margin-left: auto;margin-right: auto;">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search" name="search">
+      <div class="input-group-btn">
+        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+      </div>
+    </div>
+  </div>
+  -->
+</div>
+  
+
+
+<!-- ////////// DYNAMIC PART ////////////-->
+<script>
+  text = ""
+  for (const key in projects) {
+      const project = projects[key];
+
+      text += `<div class="col-md-4 col-sm-12">
+                <div class="card" style="margin: 8px;">
+                    <div class="card-content">
+                        <img class="card-img-top img-fluid" src="images/project` + project.project_id + `.jpg" alt="Card image cap"
+                            style="height: 20rem" />
+                        <div class="card-body">
+                            <h2 class="card-title">` + project.project_name + `</h2>
+                            <p class="card-text">
+                                Duration: ` + project.period + ` Years
+                            </p>
+                            <p class="card-text">
+                              Descripton: ` + project.description + `
+                          </p>
+                          <p class="card-text">
+                            Initial Budget: $` + project.total_budget + `
+                        </p>
+                            <a href="ProjectDetailsPage.html?projectId=` + project.project_id + `"><button class="btn btn-primary block">Details</button></a>
+                        </div>
+                    </div>
+                </div>
+              </div>`    
+
+  }
+
+  document.write(text)
+</script>
+<!-- /////////////////////////////////////--> 
+
+
+
+
+
+
+</body>
+</html>
